@@ -1,0 +1,55 @@
+Setting:
+  phase: train #train or test
+  gpu_ids: [0] # [0,1,2,3, ... etc]
+
+Path:
+  Data_train: ./data/celeba_hq_256x256/train
+  Data_val: ./data/celeba_hq_256x256/test
+
+  resume_state: #results/stargan/resume/epoch_12.state
+  resume_model_dir: results/stargan/resume
+  log_file_path: results/stargan
+  save_img: results/stargan/res_img
+  checkpoint_dir: results/stargan/ckp
+
+  pretrain_model_dir: results/pretrain/stargan
+  pretrain_res: results/stargan/res_pretrain_img
+
+Transforms:
+  flip: True
+  rot: True
+  resize: 256
+
+Model_Param:
+  dataset_name: celeba_hq
+  model_name: stargan
+  input_nc: 3
+  output_nc: 3
+  ngf: 64
+  ndf: 64
+  img_size: 256 # should be same with 'Transforms'-'resize'
+  init_type: normal # network initialize type
+  init_gain: 0.02 # std
+  c_dim: 1 # gender only
+  g_repeat_num: 6
+  d_repeat_num: 6
+  d_leaky_relu_slope: 0.01
+
+Data_Param:
+  batch_size: 4
+  num_threads: 4
+
+Train:
+  n_epochs: 200
+  beta1: 0.5
+  beta2: 0.999
+  lr: 0.0001
+  n_critic: 5
+  lambda_cls: 1
+  lambda_rec: 10
+  lambda_gp: 10 # gradient penalty coefficient default 10
+  lr_decay_epoch_start: 100
+
+Save:
+  save_img_iter: 100
+  print_iter: 100
