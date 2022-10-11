@@ -11,7 +11,7 @@ def tensor_transforms(opt):
     tf_list = []
     if opt['Setting']['phase'] == 'train':
         tf_list.append(transforms.RandomHorizontalFlip())
-    tf_list.append(transforms.Resize(opt['Transforms']['resize'], Image.LANCZOS))
+    tf_list.append(transforms.Resize(opt['Model_Param']['img_size'], Image.LANCZOS))
     tf_list.append(transforms.ToTensor())
     tf_list.append(transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)))
     return transforms.Compose(tf_list)

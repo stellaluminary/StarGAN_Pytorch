@@ -47,11 +47,12 @@ class StarGANModel(BaseModel):
             self.optimizers.append(self.optim_G)
             self.optimizers.append(self.optim_D)
 
-            self.scheduler_G = optim.lr_scheduler.LambdaLR(self.optim_G, lr_lambda=self.learning_rate_decay_func)
-            self.scheduler_D = optim.lr_scheduler.LambdaLR(self.optim_D, lr_lambda=self.learning_rate_decay_func)
+            # scheduler is not working well yet
+            #self.scheduler_G = optim.lr_scheduler.LambdaLR(self.optim_G, lr_lambda=self.learning_rate_decay_func)
+            #self.scheduler_D = optim.lr_scheduler.LambdaLR(self.optim_D, lr_lambda=self.learning_rate_decay_func)
 
-            self.schedulers.append(self.scheduler_G)
-            self.schedulers.append(self.scheduler_D)
+            #self.schedulers.append(self.scheduler_G)
+            #self.schedulers.append(self.scheduler_D)
 
     def feed_data(self, data):
         self.imgs = data[0].to(self.device)
