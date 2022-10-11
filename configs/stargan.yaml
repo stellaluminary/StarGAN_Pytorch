@@ -3,8 +3,8 @@ Setting:
   gpu_ids: [0] # [0,1,2,3, ... etc]
 
 Path:
-  Data_train: ./data/celeba_hq_256x256/train
-  Data_val: ./data/celeba_hq_256x256/test
+  Data_train: ./data/celeba_hq/train
+  Data_val: ./data/celeba_hq/test
 
   resume_state: #results/stargan/resume/epoch_12.state
   resume_model_dir: results/stargan/resume
