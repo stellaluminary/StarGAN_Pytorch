@@ -164,5 +164,7 @@ def extract_epoch(dir):
         for fname in fnames:
             if is_pth_file(fname):
                 epochs.append(fname.split('_')[0])
+    logger.info('-------- Pretrain Model Epoch Start from %s --------' % (sorted(epochs)[-1]))
+
     return sorted(epochs)[-1]
 

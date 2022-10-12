@@ -4,6 +4,7 @@ from data_loader import create_dataset
 from models import create_model
 from utils import util
 import logging
+import torch
 
 def main():
     parser = argparse.ArgumentParser()
@@ -28,17 +29,23 @@ def main():
     model = create_model(opt)
     model.print_networks()
     model.load_pretrained_nets()
-    model.eval()
+    #resume_state = torch.load(opt['Path']['resume_state'])
+    #model.resume_networks(resume_state['epoch'])
 
     for idx, data in enumerate(data_loader):
 
         model.feed_data(data)
-        model.forward()
+        model.test()
 
         images = model.get_current_visuals()
+        # print(images['imgs'].size(), images['imgs'].max(), images['imgs'].min())
+        # print(images['fake'].size(), images['fake'].max(), images['fake'].min())
+        # print(images['fake_random'].size(), images['fake_random'].max(), images['fake_random'].min())
         vis_path = model.make_visual_dir(opt['Path']['pretrain_res'])
+        # print(vis_path)
         util.save_current_imgs(images=images, save_dirs=vis_path, phase=opt['Setting']['phase'],
                                 id=idx, min_max=(-1, 1))
+
 
 if __name__ == '__main__':
     main()

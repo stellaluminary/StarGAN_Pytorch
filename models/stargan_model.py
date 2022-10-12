@@ -24,7 +24,7 @@ class StarGANModel(BaseModel):
             self.visual_names = ['imgs', 'fake', 'recov_fake']
         else:
             self.model_names = ['G']
-            self.visual_names = ['imgs', 'fake']
+            self.visual_names = ['imgs', 'fake', 'fake_random']
 
         # define self.loss_names for saving loss log file
         self.loss_names = ['G', 'D']
@@ -109,6 +109,8 @@ class StarGANModel(BaseModel):
         self.optim_D.step()
 
     def test(self):
+        self.netG.eval()
+
         self.modi_labels = torch.zeros_like(self.labels)
         for e, val in enumerate(self.labels):
             if self.labels[e][0] == 1:
@@ -116,11 +118,15 @@ class StarGANModel(BaseModel):
             else:
                 self.modi_labels[e][0] = 1
 
-        print(self.labels)
-        print(self.modi_labels)
-
+        #logger.info('Origianl Label')
+        #logger.info(self.labels)
+        #logger.info('Modified Label')
+        #logger.info(self.modi_labels)
         with torch.no_grad():
             self.fake = self.netG(self.imgs, self.modi_labels)
+            self.fake_random = self.netG(self.imgs, self.sampled_c)
+
+        self.netG.train()
 
     def gradient_penalty(self, real_samples, fake_samples):
         BATCH_SIZE, C, H, W = real_samples.shape

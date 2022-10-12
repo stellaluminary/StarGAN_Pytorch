@@ -18,10 +18,16 @@ def tensor_transforms(opt):
 
 def create_dataset(opt, image_dir):
     dataset = ImageFolder(image_dir, tensor_transforms(opt))
-    data_loader = data.DataLoader(dataset=dataset,
-                                  batch_size=opt['Data_Param']['batch_size'],
-                                  shuffle=(opt['Setting']['phase']=='train'),
-                                  num_workers=opt['Data_Param']['num_threads'])
+    if opt['Setting']['phase'] == 'train':
+        data_loader = data.DataLoader(dataset=dataset,
+                                      batch_size=opt['Data_Param']['batch_size'],
+                                      shuffle=True,
+                                      num_workers=opt['Data_Param']['num_threads'])
+    else:
+        data_loader = data.DataLoader(dataset=dataset,
+                                      batch_size=1,
+                                      shuffle=False,
+                                      num_workers=1)
     return dataset, data_loader
 
 

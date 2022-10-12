@@ -4,10 +4,11 @@ Setting:
 
 Path:
   Data_train: ./data/celeba_hq/train
-  Data_val: ./data/celeba_hq/test
+  Data_val: ./data/celeba_hq/val
 
-  resume_state: #results/stargan/resume/epoch_12.state
+  resume_state: #results/stargan/resume/49_epoch.state
   resume_model_dir: results/stargan/resume
+  log_file_path: results/stargan
   save_img: results/stargan/res_img
   checkpoint_dir: results/stargan/ckp
 
@@ -45,5 +46,5 @@ Train:
   lr_decay_epoch_start: 100
 
 Save:
-  save_img_iter: 100
+  save_img_iter: 400
   print_iter: 100

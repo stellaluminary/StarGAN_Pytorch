@@ -61,9 +61,12 @@ class BaseModel():
                 net = getattr(self, 'net' + name)
                 if isinstance(net, torch.nn.DataParallel):
                     net = net.module
-                print('loading the model from %s' % load_path)
-                state_dict = torch.load(load_path)
-                net.load_state_dict(state_dict)
+                logger.info('loading the model from %s' % load_path)
+                pretrained_dict = torch.load(load_path)
+                model_dict = net.state_dict()
+                pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+                model_dict.update(pretrained_dict)
+                net.load_state_dict(model_dict)
 
     def get_image_paths(self):
         return self.image_paths
