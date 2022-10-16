@@ -88,14 +88,22 @@ python train.py --opt configs/stargan.yaml
 
 ## Test
 
+After check and modify the configuration in configs/stargan.yaml, run the following commands
+
+Setting: phase : test
 
 
-
+```
+python test.py --opt configs/stargan.yaml
+```
 
 
 ## Results
 
-
+|256x256 / batch_size 4 / epoch 50 / NVIDIA RTX 2060 6GB|
+|![](asset/res1.png)|
+|:---:|
+|![](asset/res2.png)|
 
 
 
